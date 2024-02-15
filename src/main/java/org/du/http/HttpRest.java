@@ -80,6 +80,30 @@ public class HttpRest {
         }
     }
 
+    public void authorize(String  credentialManagerServiceUrl,
+                          String store)
+            throws IOException
+    {
+        try {
+            RequestBody requestBody = RequestBody
+                    .create(MediaType.parse("application/json"), store);
+            Request request = new Request.Builder()
+                    .url(credentialManagerServiceUrl)
+                    .post(requestBody)
+                    .build();
+
+            try(Response response = httpClient.newCall(request).execute()) {
+                assert response.body() != null;
+                CryptoPackage responsePacket = CryptoPackage.parseJson(response.body().string());
+                responsePacket.verify();
+                this.authorizationCode = responsePacket.getData();
+            }
+        } catch (IOException e) {
+            this.authorizationCode = "";
+            throw e;
+        }
+    }
+
     public CryptoPackage post(String toUrl, CryptoPackage cryptoPackage) throws IOException {
         RequestBody requestBody =
                 RequestBody.create(
