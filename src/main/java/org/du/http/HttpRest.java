@@ -94,9 +94,7 @@ public class HttpRest {
 
             try(Response response = httpClient.newCall(request).execute()) {
                 assert response.body() != null;
-                CryptoPackage responsePacket = CryptoPackage.parseJson(response.body().string());
-                responsePacket.verify();
-                this.authorizationCode = responsePacket.getData();
+                this.authorizationCode = response.body().string();
             }
         } catch (IOException e) {
             this.authorizationCode = "";
