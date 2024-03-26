@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f67ffd71-c49f-4870-91da-8ac6c51c92bc" name="Changes" comment="added new auth method">
+    <list default="true" id="f67ffd71-c49f-4870-91da-8ac6c51c92bc" name="Changes" comment="modifications">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/du/http/HttpRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/du/http/HttpRest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,6 +60,13 @@
       <recent name="org.du.http" />
     </key>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-1.8.0_402-corretto-1.8.0_402-4caba194b151-a39a91d7" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -75,6 +84,8 @@
       <workItem from="1705529941765" duration="34000" />
       <workItem from="1707996276034" duration="2198000" />
       <workItem from="1708010083561" duration="2019000" />
+      <workItem from="1708372796155" duration="1533000" />
+      <workItem from="1711376043726" duration="1580000" />
     </task>
     <task id="LOCAL-00001" summary="first import">
       <option name="closed" value="true" />
@@ -100,7 +111,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708010198929</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="modifications">
+      <option name="closed" value="true" />
+      <created>1708374000205</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1708374000205</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,6 +129,7 @@
     <MESSAGE value="first import" />
     <MESSAGE value="Library supporting all versions and no certificate check" />
     <MESSAGE value="added new auth method" />
-    <option name="LAST_COMMIT_MESSAGE" value="added new auth method" />
+    <MESSAGE value="modifications" />
+    <option name="LAST_COMMIT_MESSAGE" value="modifications" />
   </component>
 </project>

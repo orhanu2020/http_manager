@@ -1,4 +1,4 @@
-package org.du.http;
+package com.br.http;
 
 import lombok.Getter;
 import lombok.Setter;

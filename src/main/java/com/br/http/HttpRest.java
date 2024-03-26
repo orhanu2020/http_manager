@@ -1,10 +1,9 @@
-package org.du.http;
+package com.br.http;
 
 
 
 import lombok.Getter;
 import okhttp3.*;
-import org.du.network.crypto.CryptoPackage;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -54,15 +53,13 @@ public class HttpRest {
     }
 
     public void authorize(String  credentialManagerServiceUrl,
-                          CryptoPackage requestPackage,
+                          String authString,
                           String sourceServiceName)
             throws IOException
     {
         try {
-            CryptoPackage authRequest = CryptoPackage.pack(requestPackage.getData(), sourceServiceName);
-
             RequestBody requestBody = RequestBody
-                    .create(MediaType.parse("application/json"), authRequest.toString());
+                    .create(MediaType.parse("application/json"), authString);
             Request request = new Request.Builder()
                     .url(credentialManagerServiceUrl)
                     .post(requestBody)
@@ -70,9 +67,7 @@ public class HttpRest {
 
             try(Response response = httpClient.newCall(request).execute()) {
                 assert response.body() != null;
-                CryptoPackage responsePacket = CryptoPackage.parseJson(response.body().string());
-                responsePacket.verify();
-                this.authorizationCode = responsePacket.getData();
+                this.authorizationCode = response.body().string();
             }
         } catch (IOException e) {
             this.authorizationCode = "";
@@ -99,22 +94,6 @@ public class HttpRest {
         } catch (IOException e) {
             this.authorizationCode = "";
             throw e;
-        }
-    }
-
-    public CryptoPackage post(String toUrl, CryptoPackage cryptoPackage) throws IOException {
-        RequestBody requestBody =
-                RequestBody.create(
-                        cryptoPackage.toString().getBytes(StandardCharsets.UTF_8),
-                        MediaType.get("application/json"));
-        Request request = new Request.Builder()
-                .url(toUrl)
-                .post(requestBody)
-                .build();
-        try(Response response = httpClient.newCall(request).execute()){
-            assert response.body() != null;
-            String resultJson = response.body().string();
-            return CryptoPackage.parseJson(resultJson);
         }
     }
 
