@@ -45,12 +45,13 @@ public class HttpRest {
             newBuilder.hostnameVerifier((hostname, session) -> true);
 
             this.httpClient = newBuilder
-                    .readTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(120, TimeUnit.SECONDS)
                     .build();
 
             this.authorizationCode = "";
         } catch (Exception e) {}
     }
+
 
     public void authorize(String  credentialManagerServiceUrl,
                           String authString,
@@ -134,6 +135,27 @@ public class HttpRest {
         }
     }
 
+    public HttpResponse put(String toUrl, Map<String, String> headerMap, String body) throws IOException {
+
+        RequestBody requestBody =
+                RequestBody.create(
+                        body.getBytes(StandardCharsets.UTF_8),
+                        MediaType.get("application/json"));
+
+        Headers headers = Headers.of(headerMap);
+        Request request = new Request.Builder()
+                .url(toUrl)
+                .put(requestBody)
+                .headers(headers)
+                .build();
+        HttpResponse httpResponse = new HttpResponse();
+        try(Response response = httpClient.newCall(request).execute()){
+            httpResponse.setSuccess(response.isSuccessful());
+            httpResponse.setData(response.body().string());
+            return httpResponse;
+        }
+    }
+
     public String get(String toUrl, Map<String, String> headerMap)
             throws IOException
     {
@@ -147,6 +169,24 @@ public class HttpRest {
             assert response.body() != null;
             String resultData = response.body().string();
             return resultData;
+        }
+    }
+
+    public HttpResponse getWithHeaders(String toUrl, Map<String, String> headerMap)
+            throws IOException
+    {
+        Headers headers = Headers.of(headerMap);
+        Request request = new Request.Builder()
+                .url(toUrl)
+                .headers(headers)
+                .get()
+                .build();
+        HttpResponse httpResponse = new HttpResponse();
+        try(Response response = httpClient.newCall(request).execute()){
+            httpResponse.setSuccess(response.isSuccessful());
+            httpResponse.setData(response.body().string());
+            httpResponse.setHeaders(response.headers().toMultimap());
+            return httpResponse;
         }
     }
 }
